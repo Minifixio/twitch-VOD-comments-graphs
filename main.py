@@ -113,4 +113,4 @@ def progressBar(progress, barLen = 20):
     sys.stdout.flush()
 
 
-analyze(618460248, 0, 3600, 'line', 20)
+# ex : analyze(619607685, 10, 3600, 'hist', 20)
