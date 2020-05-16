@@ -1,5 +1,4 @@
 import requests
-import numpy
 import matplotlib
 import time, sys
 
@@ -40,7 +39,15 @@ def getComments(videoId, startTime, endTime):
     ratings = []
 
     while(lastTime < endTime):
-        r = requests.get(url, headers=headers)
+
+        try:
+            r = requests.get(url, headers=headers)
+        except requests.ConnectionError as e:  # This is the correct syntax
+            raise SystemExit(e)
+
+        if (r.status_code != 200):
+            raise SystemExit(r.json())
+
         content = r.json()
         comments = content['comments']
         res += comments
@@ -106,4 +113,4 @@ def progressBar(progress, barLen = 20):
     sys.stdout.flush()
 
 
-analyze(618460248, 0, 500, 'line', 20)
+analyze(618460248, 0, 3600, 'line', 20)
